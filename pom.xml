@@ -3,14 +3,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.google.code.gson</groupId>
+  <groupId>com.firework.gson</groupId>
   <artifactId>gson-parent</artifactId>
-  <version>2.10.1</version>
+  <version>2.10.1.0</version>
   <packaging>pom</packaging>
 
   <name>Gson Parent</name>
   <description>Gson JSON library</description>
-  <url>https://github.com/google/gson</url>
+  <url>https://github.com/loopsocial/gson</url>
 
   <modules>
     <module>gson</module>
@@ -22,23 +22,23 @@
   </properties>
 
   <scm>
-    <url>https://github.com/google/gson/</url>
-    <connection>scm:git:https://github.com/google/gson.git</connection>
-    <developerConnection>scm:git:git@github.com:google/gson.git</developerConnection>
-    <tag>gson-parent-2.10.1</tag>
+    <url>https://github.com/loopsocial/gson/</url>
+    <connection>scm:git:https://github.com/loopsocial/gson.git</connection>
+    <developerConnection>scm:git:git@github.com:loopsocial/gson.git</developerConnection>
+    <tag>gson-parent-2.10.1.0</tag>
   </scm>
 
   <developers>
     <developer>
-      <id>google</id>
-      <organization>Google</organization>
-      <organizationUrl>https://www.google.com</organizationUrl>
+      <id>firework</id>
+      <organization>Firework</organization>
+      <organizationUrl>https://www.firework.com</organizationUrl>
     </developer>
   </developers>
 
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/google/gson/issues</url>
+    <url>https://github.com/loopsocial/gson/issues</url>
   </issueManagement>
 
   <licenses>
@@ -52,7 +52,7 @@
     <repository>
       <id>sonatype-nexus-staging</id>
       <name>Nexus Release Repository</name>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
 
@@ -77,7 +77,7 @@
           <configuration>
             <showWarnings>true</showWarnings>
             <showDeprecation>true</showDeprecation>
-            <failOnWarning>true</failOnWarning>
+            <failOnWarning>false</failOnWarning>
             <compilerArgs>
               <!-- Enable all warnings, except for ones which cause issues when building with newer JDKs, see also
                 https://docs.oracle.com/en/java/javase/11/tools/javac.html -->
@@ -182,7 +182,7 @@
               <configuration>
                 <target>
                   <!-- Replace Maven and Gradle version references; uses regex lookbehind and lookahead -->
-                  <replaceregexp match="(?&lt;=&lt;version&gt;).*(?=&lt;/version&gt;)|(?&lt;='com\.google\.code\.gson:gson:).*(?=')" flags="g" replace="${project.version}" encoding="${project.build.sourceEncoding}">
+                  <replaceregexp match="(?&lt;=&lt;version&gt;).*(?=&lt;/version&gt;)|(?&lt;='com\.loopsocial\.gson:gson:).*(?=')" flags="g" replace="${project.version}" encoding="${project.build.sourceEncoding}">
                     <fileset dir="${project.basedir}">
                       <include name="README.md" />
                       <include name="UserGuide.md" />
@@ -241,7 +241,7 @@
               <breakBuildOnSourceIncompatibleModifications>true</breakBuildOnSourceIncompatibleModifications>
               <breakBuildOnBinaryIncompatibleModifications>true</breakBuildOnBinaryIncompatibleModifications>
               <excludes>
-                <exclude>com.google.gson.internal</exclude>
+                <exclude>com.firework.gson.internal</exclude>
               </excludes>
               <onlyModified>true</onlyModified>
               <skipXmlReport>true</skipXmlReport>

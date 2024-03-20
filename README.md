@@ -19,20 +19,20 @@ There are a few open-source projects that can convert Java objects to JSON. Howe
 Gradle:
 ```gradle
 dependencies {
-  implementation 'com.google.code.gson:gson:2.10.1'
+  implementation 'com.firework.gson:gson:2.10.1.0'
 }
 ```
 
 Maven:
 ```xml
 <dependency>
-  <groupId>com.google.code.gson</groupId>
+  <groupId>com.firework.gson</groupId>
   <artifactId>gson</artifactId>
-  <version>2.10.1</version>
+  <version>2.10.1.0</version>
 </dependency>
 ```
 
-[Gson jar downloads](https://maven-badges.herokuapp.com/maven-central/com.google.code.gson/gson) are available from Maven Central.
+[Gson jar downloads](https://maven-badges.herokuapp.com/maven-central/com.loopsocial.gson/gson) are available from Maven Central.
 
 ![Build Status](https://github.com/google/gson/actions/workflows/build.yml/badge.svg)
 
@@ -41,7 +41,7 @@ Maven:
 - Gson 2.9.0 and newer: Java 7
 - Gson 2.8.9 and older: Java 6
 
-Despite supporting older Java versions, Gson also provides a JPMS module descriptor (module name `com.google.gson`) for users of Java 9 or newer.
+Despite supporting older Java versions, Gson also provides a JPMS module descriptor (module name `com.firework.gson`) for users of Java 9 or newer.
 
 #### JPMS dependencies (Java 9+)
 These are the optional Java Platform Module System (JPMS) JDK modules which Gson depends on.
@@ -53,10 +53,10 @@ When this module is present, Gson provides default adapters for some SQL date an
 - `jdk.unsupported`, respectively class `sun.misc.Unsafe` (optional)  
 When this module is present, Gson can use the `Unsafe` class to create instances of classes without no-args constructor.
 However, care should be taken when relying on this. `Unsafe` is not available in all environments and its usage has some pitfalls,
-see [`GsonBuilder.disableJdkUnsafe()`](https://javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/GsonBuilder.html#disableJdkUnsafe()).
+see [`GsonBuilder.disableJdkUnsafe()`](https://javadoc.io/doc/com.loopsocial.gson/gson/latest/com.firework.gson/com/google/gson/GsonBuilder.html#disableJdkUnsafe()).
 
 ### Documentation
-  * [API Javadoc](https://www.javadoc.io/doc/com.google.code.gson/gson): Documentation for the current release
+  * [API Javadoc](https://www.javadoc.io/doc/com.loopsocial.gson/gson): Documentation for the current release
   * [User guide](UserGuide.md): This guide contains examples on how to use Gson in your code
   * [Troubleshooting guide](Troubleshooting.md): Describes how to solve common issues when using Gson
   * [Change log](CHANGELOG.md): Changes in the recent versions

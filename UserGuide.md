@@ -52,7 +52,7 @@ Gson can work with arbitrary Java objects including pre-existing objects that yo
 
 ## Gson Performance and Scalability
 
-Here are some metrics that we obtained on a desktop (dual opteron, 8GB RAM, 64-bit Ubuntu) running lots of other things along-with the tests. You can rerun these tests by using the class [`PerformanceTest`](gson/src/test/java/com/google/gson/metrics/PerformanceTest.java).
+Here are some metrics that we obtained on a desktop (dual opteron, 8GB RAM, 64-bit Ubuntu) running lots of other things along-with the tests. You can rerun these tests by using the class [`PerformanceTest`](gson/src/test/java/com/firework/gson/metrics/PerformanceTest.java).
 
 * Strings: Deserialized strings of over 25MB without any problems (see `disabled_testStringDeserializationPerformance` method in `PerformanceTest`)
 * Large collections:
@@ -68,7 +68,7 @@ Gson was originally created for use inside Google where it is currently used in 
 
 ## Using Gson
 
-The primary class to use is [`Gson`](gson/src/main/java/com/google/gson/Gson.java) which you can just create by calling `new Gson()`. There is also a class [`GsonBuilder`](gson/src/main/java/com/google/gson/GsonBuilder.java) available that can be used to create a Gson instance with various settings like version control and so on.
+The primary class to use is [`Gson`](gson/src/main/java/com/firework/gson/Gson.java) which you can just create by calling `new Gson()`. There is also a class [`GsonBuilder`](gson/src/main/java/com/firework/gson/GsonBuilder.java) available that can be used to create a Gson instance with various settings like version control and so on.
 
 The Gson instance does not maintain any state while invoking JSON operations. So, you are free to reuse the same object for multiple JSON serialization and deserialization operations.
 
@@ -76,7 +76,7 @@ The Gson instance does not maintain any state while invoking JSON operations. So
 
 ```gradle
 dependencies {
-    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.firework.code.gson:gson:2.10.1'
 }
 ```
 
@@ -85,13 +85,14 @@ dependencies {
 To use Gson with Maven2/3, you can use the Gson version available in Maven Central by adding the following dependency:
 
 ```xml
+
 <dependencies>
     <!--  Gson: Java to JSON conversion -->
     <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.10.1</version>
-      <scope>compile</scope>
+        <groupId>com.firework.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.10.1</version>
+        <scope>compile</scope>
     </dependency>
 </dependencies>
 ```
@@ -275,7 +276,7 @@ Map<String, String> stringMap = gson.fromJson(json, mapType);
 // ==> stringMap is {key=value}
 ```
 
-Gson also supports using complex types as Map keys. This feature can be enabled with [`GsonBuilder.enableComplexMapKeySerialization()`](https://javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/GsonBuilder.html#enableComplexMapKeySerialization()). If enabled, Gson uses the `write` method of the `TypeAdapter` registered for the Map key type to serialize the keys, instead of using `toString()`. When any of the keys is serialized by the adapter as JSON array or JSON object, Gson will serialize the complete Map as JSON array, consisting of key-value pairs (encoded as JSON array). Otherwise, if none of the keys is serialized as a JSON array or JSON object, Gson will use a JSON object to encode the Map:
+Gson also supports using complex types as Map keys. This feature can be enabled with [`GsonBuilder.enableComplexMapKeySerialization()`](https://javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/GsonBuilder.html#enableComplexMapKeySerialization()). If enabled, Gson uses the `write` method of the `TypeAdapter` registered for the Map key type to serialize the keys, instead of using `toString()`. When any of the keys is serialized by the adapter as JSON array or JSON object, Gson will serialize the complete Map as JSON array, consisting of key-value pairs (encoded as JSON array). Otherwise, if none of the keys is serialized as a JSON array or JSON object, Gson will use a JSON object to encode the Map:
 
 ```java
 class PersonName {
@@ -326,7 +327,7 @@ gson.fromJson(json, foo.getClass()); // Fails to deserialize foo.value as Bar
 
 The above code fails to interpret value as type Bar because Gson invokes `foo.getClass()` to get its class information, but this method returns a raw class, `Foo.class`. This means that Gson has no way of knowing that this is an object of type `Foo<Bar>`, and not just plain `Foo`.
 
-You can solve this problem by specifying the correct parameterized type for your generic type. You can do this by using the [`TypeToken`](https://javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/reflect/TypeToken.html) class.
+You can solve this problem by specifying the correct parameterized type for your generic type. You can do this by using the [`TypeToken`](https://javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/reflect/TypeToken.html) class.
 
 ```java
 Type fooType = new TypeToken<Foo<Bar>>() {}.getType();
@@ -383,7 +384,7 @@ Gson has built-in serializers and deserializers for commonly used classes whose 
 * `java.net.URL` to match it with strings like `"https://github.com/google/gson/"`
 * `java.net.URI` to match it with strings like `"/google/gson/"`
 
-For many more, see the internal class [`TypeAdapters`](gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java).
+For many more, see the internal class [`TypeAdapters`](gson/src/main/java/com/firework/gson/internal/bind/TypeAdapters.java).
 
 You can also find source code for some commonly used classes such as JodaTime at [this page](https://sites.google.com/site/gson/gson-type-adapters-for-common-classes-1).
 
@@ -573,7 +574,7 @@ null
 
 ### Versioning Support
 
-Multiple versions of the same object can be maintained by using [@Since](gson/src/main/java/com/google/gson/annotations/Since.java) annotation. This annotation can be used on Classes, Fields and, in a future release, Methods. In order to leverage this feature, you must configure your `Gson` instance to ignore any field/object that is greater than some version number. If no version is set on the `Gson` instance then it will serialize and deserialize all fields and classes regardless of the version.
+Multiple versions of the same object can be maintained by using [@Since](gson/src/main/java/com/firework/gson/annotations/Since.java) annotation. This annotation can be used on Classes, Fields and, in a future release, Methods. In order to leverage this feature, you must configure your `Gson` instance to ignore any field/object that is greater than some version number. If no version is set on the `Gson` instance then it will serialize and deserialize all fields and classes regardless of the version.
 
 ```java
 public class VersionedClass {
@@ -636,7 +637,7 @@ This feature provides a way where you can mark certain fields of your objects to
 
 #### User Defined Exclusion Strategies
 
-If the above mechanisms for excluding fields and class type do not work for you then you can always write your own exclusion strategy and plug it into Gson. See the [`ExclusionStrategy`](https://javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/ExclusionStrategy.html) JavaDoc for more information.
+If the above mechanisms for excluding fields and class type do not work for you then you can always write your own exclusion strategy and plug it into Gson. See the [`ExclusionStrategy`](https://javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/ExclusionStrategy.html) JavaDoc for more information.
 
 The following example shows how to exclude fields marked with a specific `@Foo` annotation and excludes top-level types (or declared field type) of class `String`.
 
@@ -695,7 +696,7 @@ The output is:
 
 ### JSON Field Naming Support
 
-Gson supports some pre-defined field naming policies to convert the standard Java field names (i.e., camel cased names starting with lower case --- `sampleFieldNameInJava`) to a JSON field name (i.e., `sample_field_name_in_java` or `SampleFieldNameInJava`). See the [FieldNamingPolicy](https://javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/FieldNamingPolicy.html) class for information on the pre-defined naming policies.
+Gson supports some pre-defined field naming policies to convert the standard Java field names (i.e., camel cased names starting with lower case --- `sampleFieldNameInJava`) to a JSON field name (i.e., `sample_field_name_in_java` or `SampleFieldNameInJava`). See the [FieldNamingPolicy](https://javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/FieldNamingPolicy.html) class for information on the pre-defined naming policies.
 
 It also has an annotation based strategy to allows clients to define custom names on a per field basis. Note, that the annotation based strategy has field name validation which will raise "Runtime" exceptions if an invalid field name is provided as the annotation value.
 
@@ -724,7 +725,7 @@ The output is:
 {"custom_naming":"first","SomeOtherField":"second"}
 ```
 
-If you have a need for custom naming policy ([see this discussion](https://groups.google.com/group/google-gson/browse_thread/thread/cb441a2d717f6892)), you can use the [@SerializedName](https://javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/annotations/SerializedName.html) annotation.
+If you have a need for custom naming policy ([see this discussion](https://groups.google.com/group/google-gson/browse_thread/thread/cb441a2d717f6892)), you can use the [@SerializedName](https://javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/annotations/SerializedName.html) annotation.
 
 ### Sharing State Across Custom Serializers and Deserializers
 

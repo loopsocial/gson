@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.gson.internal;
+package com.firework.gson.internal;
 
 /**
  * Build configuration for Gson. This file is automatically populated by

@@ -2,11 +2,11 @@
  * Defines the Gson serialization/deserialization API.
  * @since 2.8.6
  */
-module com.google.gson {
-	exports com.google.gson;
-	exports com.google.gson.annotations;
-	exports com.google.gson.reflect;
-	exports com.google.gson.stream;
+module com.firework.gson {
+	exports com.firework.gson;
+	exports com.firework.gson.annotations;
+	exports com.firework.gson.reflect;
+	exports com.firework.gson.stream;
 
 	// Optional dependency on java.sql
 	requires static java.sql;

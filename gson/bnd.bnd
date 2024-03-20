@@ -1,4 +1,4 @@
-Bundle-SymbolicName: com.google.gson
+Bundle-SymbolicName: com.firework.gson
 Bundle-Name: ${project.name}
 Bundle-Description: ${project.description}
 Bundle-Vendor: Google Gson Project
@@ -13,7 +13,7 @@ Import-Package: sun.misc;resolution:=optional, *
 -removeheaders: Private-Package
 
 -exportcontents:\
-    com.google.gson,\
-    com.google.gson.annotations,\
-    com.google.gson.reflect,\
-    com.google.gson.stream
+    com.firework.gson,\
+    com.firework.gson.annotations,\
+    com.firework.gson.reflect,\
+    com.firework.gson.stream

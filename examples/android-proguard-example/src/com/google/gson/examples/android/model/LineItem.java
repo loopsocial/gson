@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.gson.examples.android.model;
+package com.firework.gson.examples.android.model;
 
 /**
  * A line item in a cart. This is not a rest resource, just a dependent object

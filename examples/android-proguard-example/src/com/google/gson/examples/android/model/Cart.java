@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.gson.examples.android.model;
+package com.firework.gson.examples.android.model;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
+import com.firework.gson.annotations.SerializedName;
 
 /**
  * A model object representing a cart that can be posted to an order-processing server

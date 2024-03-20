@@ -46,7 +46,7 @@ See [OSSRH Publish Guide](https://central.sonatype.org/publish/publish-guide/).
   vogar --benchmark --classpath gson.jar path/to/Benchmark.java
   ```
 
-For example, here is how to run the [CollectionsDeserializationBenchmark](gson/src/main/java/com/google/gson/metrics/CollectionsDeserializationBenchmark.java):
+For example, here is how to run the [CollectionsDeserializationBenchmark](gson/src/main/java/com/firework/gson/metrics/CollectionsDeserializationBenchmark.java):
 
 ```bash
 export ANDROID_HOME=~/apps/android-sdk-mac_x86

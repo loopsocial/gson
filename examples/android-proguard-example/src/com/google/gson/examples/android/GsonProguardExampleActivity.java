@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.gson.examples.android;
+package com.firework.gson.examples.android;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.examples.android.model.Cart;
-import com.google.gson.examples.android.model.LineItem;
+import com.firework.gson.Gson;
+import com.firework.gson.examples.android.model.Cart;
+import com.firework.gson.examples.android.model.LineItem;
 
 /**
  * Activity class illustrating how to use proguard with Gson

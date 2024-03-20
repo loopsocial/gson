@@ -12,9 +12,9 @@ This guide describes how to troubleshoot common issues when using Gson.
 
 - Avoid raw types: Instead of calling `fromJson(..., List.class)`, create for example a `TypeToken<List<MyClass>>`.
   See the [user guide](UserGuide.md#collections-examples) for more information.
-- When using `TypeToken` prefer the `Gson.fromJson` overloads with `TypeToken` parameter such as [`fromJson(Reader, TypeToken)`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/Gson.html#fromJson(java.io.Reader,com.google.gson.reflect.TypeToken)).
+- When using `TypeToken` prefer the `Gson.fromJson` overloads with `TypeToken` parameter such as [`fromJson(Reader, TypeToken)`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/Gson.html#fromJson(java.io.Reader,com.firework.gson.reflect.TypeToken)).
   The overloads with `Type` parameter do not provide any type-safety guarantees.
-- When using `TypeToken` make sure you don't capture a type variable. For example avoid something like `new TypeToken<List<T>>()` (where `T` is a type variable). Due to Java type erasure the actual type of `T` is not available at runtime. Refactor your code to pass around `TypeToken` instances or use [`TypeToken.getParameterized(...)`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/reflect/TypeToken.html#getParameterized(java.lang.reflect.Type,java.lang.reflect.Type...)), for example `TypeToken.getParameterized(List.class, elementClass)`.
+- When using `TypeToken` make sure you don't capture a type variable. For example avoid something like `new TypeToken<List<T>>()` (where `T` is a type variable). Due to Java type erasure the actual type of `T` is not available at runtime. Refactor your code to pass around `TypeToken` instances or use [`TypeToken.getParameterized(...)`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/reflect/TypeToken.html#getParameterized(java.lang.reflect.Type,java.lang.reflect.Type...)), for example `TypeToken.getParameterized(List.class, elementClass)`.
 
 ## `InaccessibleObjectException`: 'module ... does not "opens ..." to unnamed module'
 
@@ -22,17 +22,17 @@ This guide describes how to troubleshoot common issues when using Gson.
 
 **Reason:** You use Gson by accident to access internal fields of third-party classes
 
-**Solution:** Write custom Gson [`TypeAdapter`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/TypeAdapter.html) implementations for the affected classes or change the type of your data
+**Solution:** Write custom Gson [`TypeAdapter`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/TypeAdapter.html) implementations for the affected classes or change the type of your data
 
 **Explanation:**
 
 When no built-in adapter for a type exists and no custom adapter has been registered, Gson falls back to using reflection to access the fields of a class (including `private` ones). Most likely you are seeing this error because you (by accident) rely on the reflection-based adapter for third-party classes. That should be avoided because you make yourself dependent on the implementation details of these classes which could change at any point. For the JDK it is also not possible anymore to access internal fields using reflection starting with JDK 17, see [JEP 403](https://openjdk.org/jeps/403).
 
-If you want to prevent using reflection on third-party classes in the future you can write your own [`ReflectionAccessFilter`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/ReflectionAccessFilter.html) or use one of the predefined ones, such as `ReflectionAccessFilter.BLOCK_ALL_PLATFORM`.
+If you want to prevent using reflection on third-party classes in the future you can write your own [`ReflectionAccessFilter`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/ReflectionAccessFilter.html) or use one of the predefined ones, such as `ReflectionAccessFilter.BLOCK_ALL_PLATFORM`.
 
-## `InaccessibleObjectException`: 'module ... does not "opens ..." to module com.google.gson'
+## `InaccessibleObjectException`: 'module ... does not "opens ..." to module com.firework.gson'
 
-**Symptom:** An exception with a message in the form 'module ... does not "opens ..." to module com.google.gson' is thrown
+**Symptom:** An exception with a message in the form 'module ... does not "opens ..." to module com.firework.gson' is thrown
 
 **Reason:**
 
@@ -43,9 +43,9 @@ If you want to prevent using reflection on third-party classes in the future you
 
 ```java
 module mymodule {
-    requires com.google.gson;
+    requires com.firework.gson;
 
-    opens mypackage to com.google.gson;
+    opens mypackage to com.firework.gson;
 }
 ```
 
@@ -65,7 +65,7 @@ module mymodule {
 
 **Solution:** Make sure you have configured ProGuard / R8 correctly to preserve the names of your fields. See the [Android example](examples/android-proguard-example/README.md) for more information.
 
-If you want to preserve backward compatibility for you app you can use [`@SerializedName`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/annotations/SerializedName.html) on the fields to specify the obfuscated name as alternate, for example: `@SerializedName(value = "myprop", alternate = "a")`
+If you want to preserve backward compatibility for you app you can use [`@SerializedName`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/annotations/SerializedName.html) on the fields to specify the obfuscated name as alternate, for example: `@SerializedName(value = "myprop", alternate = "a")`
 
 Normally ProGuard and R8 produce a mapping file, this makes it easier to find out the obfuscated field names instead of having to find them out through trial and error or other means. See the [Android Studio user guide](https://developer.android.com/studio/build/shrink-code.html#retracing) for more information.
 
@@ -80,7 +80,7 @@ Normally ProGuard and R8 produce a mapping file, this makes it easier to find ou
 - is `static` (explicitly or implicitly when it is a top-level class)
 - has a no-args constructor
 
-Otherwise Gson will by default try to use JDK `Unsafe` or similar means to create an instance of your class without invoking the constructor and without running any initializers. You can also disable that behavior through [`GsonBuilder.disableJdkUnsafe()`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/GsonBuilder.html#disableJdkUnsafe()) to notice such issues early on.
+Otherwise Gson will by default try to use JDK `Unsafe` or similar means to create an instance of your class without invoking the constructor and without running any initializers. You can also disable that behavior through [`GsonBuilder.disableJdkUnsafe()`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/GsonBuilder.html#disableJdkUnsafe()) to notice such issues early on.
 
 ## `null` values for anonymous and local classes
 
@@ -101,7 +101,7 @@ Notes:
 
 **Reason:** The `Map` key type is 'complex' and you have not configured the `GsonBuilder` properly
 
-**Solution:** Use [`GsonBuilder.enableComplexMapKeySerialization()`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/GsonBuilder.html#enableComplexMapKeySerialization()). See also the [user guide](UserGuide.md#maps-examples) for more information.
+**Solution:** Use [`GsonBuilder.enableComplexMapKeySerialization()`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/GsonBuilder.html#enableComplexMapKeySerialization()). See also the [user guide](UserGuide.md#maps-examples) for more information.
 
 ## Parsing JSON fails with `MalformedJsonException`
 
@@ -117,7 +117,7 @@ Notes:
 
 **Reason:** When parsing a JSON number as `Object`, Gson will by default create always return a `double`
 
-**Solution:** Use [`GsonBuilder.setObjectToNumberStrategy`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/GsonBuilder.html#setObjectToNumberStrategy(com.google.gson.ToNumberStrategy)) to specify what type of number should be returned
+**Solution:** Use [`GsonBuilder.setObjectToNumberStrategy`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/GsonBuilder.html#setObjectToNumberStrategy(com.firework.gson.ToNumberStrategy)) to specify what type of number should be returned
 
 ## Malformed JSON not rejected
 
@@ -125,9 +125,9 @@ Notes:
 
 **Reason:** Due to legacy reasons Gson performs parsing by default in lenient mode
 
-**Solution:** See [`Gson` class documentation](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/Gson.html) section "Lenient JSON handling"
+**Solution:** See [`Gson` class documentation](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/Gson.html) section "Lenient JSON handling"
 
-Note: Even in non-lenient mode Gson deviates slightly from the JSON specification, see [`JsonReader.setLenient`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/stream/JsonReader.html#setLenient(boolean)) for more details.
+Note: Even in non-lenient mode Gson deviates slightly from the JSON specification, see [`JsonReader.setLenient`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/stream/JsonReader.html#setLenient(boolean)) for more details.
 
 ## `IllegalStateException`: "Expected ... but was ..."
 
@@ -157,7 +157,7 @@ public MyClass read(JsonReader in) throws IOException {
 }
 ```
 
-Alternatively you can call [`nullSafe()`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/TypeAdapter.html#nullSafe()) on the adapter instance you created.
+Alternatively you can call [`nullSafe()`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/TypeAdapter.html#nullSafe()) on the adapter instance you created.
 
 ## Properties missing in JSON
 
@@ -165,7 +165,7 @@ Alternatively you can call [`nullSafe()`](https://www.javadoc.io/doc/com.google.
 
 **Reason:** Gson by default omits JSON null from the output (or: ProGuard / R8 is not configured correctly and removed unused fields)
 
-**Solution:** Use [`GsonBuilder.serializeNulls()`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/GsonBuilder.html#serializeNulls())
+**Solution:** Use [`GsonBuilder.serializeNulls()`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/GsonBuilder.html#serializeNulls())
 
 Note: Gson does not support anonymous and local classes and will serialize them as JSON null, see the [related troubleshooting point](#null-values-for-anonymous-and-local-classes).
 
@@ -175,13 +175,13 @@ Note: Gson does not support anonymous and local classes and will serialize them 
 
 **Reason:** You use Gson by accident to access internal fields of Android classes
 
-**Solution:** Write custom Gson [`TypeAdapter`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/TypeAdapter.html) implementations for the affected classes or change the type of your data
+**Solution:** Write custom Gson [`TypeAdapter`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/TypeAdapter.html) implementations for the affected classes or change the type of your data
 
 **Explanation:**
 
 When no built-in adapter for a type exists and no custom adapter has been registered, Gson falls back to using reflection to access the fields of a class (including `private` ones). Most likely you are experiencing this issue because you (by accident) rely on the reflection-based adapter for Android classes. That should be avoided because you make yourself dependent on the implementation details of these classes which could change at any point.
 
-If you want to prevent using reflection on third-party classes in the future you can write your own [`ReflectionAccessFilter`](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/ReflectionAccessFilter.html) or use one of the predefined ones, such as `ReflectionAccessFilter.BLOCK_ALL_PLATFORM`.
+If you want to prevent using reflection on third-party classes in the future you can write your own [`ReflectionAccessFilter`](https://www.javadoc.io/doc/com.firework.code.gson/gson/latest/com.firework.gson/com/google/gson/ReflectionAccessFilter.html) or use one of the predefined ones, such as `ReflectionAccessFilter.BLOCK_ALL_PLATFORM`.
 
 ## JSON output contains values of `static` fields
 

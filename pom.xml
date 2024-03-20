@@ -14,9 +14,6 @@
 
   <modules>
     <module>gson</module>
-    <module>extras</module>
-    <module>metrics</module>
-    <module>proto</module>
   </modules>
 
   <properties>

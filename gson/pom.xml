@@ -2,9 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.google.code.gson</groupId>
+    <groupId>com.firework.gson</groupId>
     <artifactId>gson-parent</artifactId>
-    <version>2.10.1</version>
+    <version>2.10.1.0</version>
   </parent>
 
   <artifactId>gson</artifactId>
@@ -123,12 +123,12 @@
             <configuration>
               <fileSets>
                 <fileSet>
-                  <sourceFile>${project.build.directory}/test-classes/com/google/gson/functional/EnumWithObfuscatedTest.class</sourceFile>
-                  <destinationFile>${project.build.directory}/test-classes-obfuscated-injar/com/google/gson/functional/EnumWithObfuscatedTest.class</destinationFile>
+                  <sourceFile>${project.build.directory}/test-classes/com/firework/gson/functional/EnumWithObfuscatedTest.class</sourceFile>
+                  <destinationFile>${project.build.directory}/test-classes-obfuscated-injar/com/firework/gson/functional/EnumWithObfuscatedTest.class</destinationFile>
                 </fileSet>
                 <fileSet>
-                  <sourceFile>${project.build.directory}/test-classes/com/google/gson/functional/EnumWithObfuscatedTest$Gender.class</sourceFile>
-                  <destinationFile>${project.build.directory}/test-classes-obfuscated-injar/com/google/gson/functional/EnumWithObfuscatedTest$Gender.class</destinationFile>
+                  <sourceFile>${project.build.directory}/test-classes/com/firework/gson/functional/EnumWithObfuscatedTest$Gender.class</sourceFile>
+                  <destinationFile>${project.build.directory}/test-classes-obfuscated-injar/com/firework/gson/functional/EnumWithObfuscatedTest$Gender.class</destinationFile>
                 </fileSet>
               </fileSets>
             </configuration>
@@ -171,10 +171,10 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${project.build.directory}/test-classes/com/google/gson/functional</outputDirectory>
+              <outputDirectory>${project.build.directory}/test-classes/com/firework/gson/functional</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${project.build.directory}/test-classes-obfuscated-outjar/com/google/gson/functional</directory>
+                  <directory>${project.build.directory}/test-classes-obfuscated-outjar/com/firework/gson/functional</directory>
                   <includes>
                     <include>EnumWithObfuscatedTest.class</include>
                     <include>EnumWithObfuscatedTest$Gender.class</include>
@@ -233,7 +233,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <excludePackageNames>com.google.gson.internal:com.google.gson.internal.bind</excludePackageNames>
+          <excludePackageNames>com.firework.gson.internal:com.firework.gson.internal.bind</excludePackageNames>
         </configuration>
       </plugin>
     </plugins>
